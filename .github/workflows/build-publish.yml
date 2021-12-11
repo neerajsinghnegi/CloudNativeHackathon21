@@ -15,7 +15,8 @@ jobs:
         CR_PAT: ${{ secrets.CR_PAT }}  
           
       run: |
-        echo $CR_PAT | docker login ghcr.io -u $ghcr_user --password-stdin
+        docker login ghcr.io -u $ghcr_user -p $CR_PAT 
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
