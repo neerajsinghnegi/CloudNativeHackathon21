@@ -23,6 +23,6 @@ jobs:
     - name: docker build image
       run: |
         docker build -t ghcr.io/$ghcr_user/nodejs:latest . 
-    - name: docker push image
+    - name: docker push image to ghcr
       run: |
         docker push ghcr.io/$ghcr_user/nodejs:latest
