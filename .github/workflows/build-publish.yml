@@ -22,8 +22,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: docker build image
+      env:
+        ghcr_user: ${{ secrets.ghcr_user }} 
       run: |
         docker build -t ghcr.io/$ghcr_user/nodejs:latest . 
     - name: docker push image to ghcr
+      env:
+        ghcr_user: ${{ secrets.ghcr_user }} 
       run: |
         docker push ghcr.io/$ghcr_user/nodejs:latest
