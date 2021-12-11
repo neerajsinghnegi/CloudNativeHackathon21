@@ -1,0 +1,28 @@
+name: Node Image Build and Push to Github Container Registry
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: ghcr login
+      env:
+        ghcr_user: ${{ secrets.ghcr_user }}   
+        CR_PAT: ${{ secrets.CR_PAT }}  
+        
+      run: |
+        echo $CR_PAT | docker login ghcr.io -u $ghcr_user -password-stdin
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: docker build image
+      run: |
+        docker build -t ghcr.io/$ghcr_user/nodejs:latest . 
+    - name: docker push image
+      run: |
+        docker push ghcr.io/$ghcr_user/nodejs:latest
