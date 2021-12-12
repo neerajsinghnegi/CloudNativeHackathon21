@@ -32,7 +32,5 @@ jobs:
       run: |
         docker push ghcr.io/$ghcr_user/nodejs:latest
     - name: triggering jenkins
-      env:
-        JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
       run: |
-        curl -I -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_PASSWORD }} http://jenkins.89c360e5-5b6d-49b3-b43d-33c5a9f94213.k8s.civo.com/job/civo_deployment/build?token=${secrets.JENKINS_TOKEN}
+        curl -I -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_PASSWORD }} http://jenkins.89c360e5-5b6d-49b3-b43d-33c5a9f94213.k8s.civo.com/job/civo_deployment/build?token=${{ secrets.JENKINS_TOKEN }}
